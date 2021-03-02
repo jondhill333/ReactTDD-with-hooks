@@ -12,13 +12,17 @@ export default function Input({ secretWord }) {
           type="text"
           placeholder="enter guess"
           value={currentGuess}
-          onChange={(e) => setCurrentGuess(e.target.value)}
+          onChange={(event) => setCurrentGuess(event.target.value)}
         />
         <button
-          date-test="submitButton"
+          data-test="submitButton"
           className="btn btn-primary mb-2"
           onClick={(e) => {
-            e.preventDefault();
+            e.preventDefault(e);
+            // TODO - update guessedWords context
+            // TODO - Check against secret work and optionally...
+            // ...update the sucess context
+            setCurrentGuess("");
           }}
         >
           Submit
