@@ -1,7 +1,15 @@
-import React from 'react';
-import App from './App';
+import React from "react";
+import { shallow } from "enzyme";
 
-test('future test goes here', () => {
-  // just a placeholder test so that jest won't complain about
-  // test-less test file
+import { findByTestAttr } from "../test/testUtils";
+import App from "./App";
+
+const setup = () => {
+  return shallow(<App />);
+};
+
+test("App renders without error", () => {
+  const wrapper = setup();
+  const componentApp = findByTestAttr(wrapper, "componentApp");
+  expect(componentApp.length).toBe(1);
 });
