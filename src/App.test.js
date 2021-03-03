@@ -1,15 +1,30 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 
 import { findByTestAttr } from "../test/testUtils";
 import App from "./App";
 
+import hookActions from "./actions/hookActions";
+
+const mockGetSecretWord = jest.fn();
+
 const setup = () => {
-  return shallow(<App />);
+  mockGetSecretWord.mockClear();
+  hookActions.getSecretWord = mockGetSecretWord;
+
+  // use mount because useEffect not called on 'shallow'
+  return mount(<App />);
 };
 
 test("App renders without error", () => {
   const wrapper = setup();
   const componentApp = findByTestAttr(wrapper, "componentApp");
   expect(componentApp.length).toBe(1);
+});
+describe("getSecretWord calls", () => {
+  test("getSecretWord gets called on App mount", () => {
+    setup();
+
+    expect(mockGetSecretWord).toHaveBeenCalled();
+  });
 });
